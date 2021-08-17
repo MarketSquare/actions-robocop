@@ -6,7 +6,7 @@ COPY LICENSE \
         requirements.txt \
         /code/
 
-RUN pip install -r /code/requirements.txt
+RUN pip install --pre -r /code/requirements.txt
 
 ENTRYPOINT ["/code/entrypoint.sh"]
 CMD []
