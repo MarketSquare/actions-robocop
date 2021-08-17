@@ -1,0 +1,9 @@
+name: 'Robocop with annotations'
+author: 'Bartłomiej Hirsz'
+description: 'Robocop with annotations for Pull Request'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'code'
+  color: 'blue'

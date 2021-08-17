@@ -1,0 +1,24 @@
+name: Publish main image
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  publish_image:
+    name: Publish main image
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
+        docker build -t docker.pkg.github.com/${GITHUB_REPOSITORY_LC}/v1:latest .
+    - name: Publish
+      run: |
+        GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
+        docker login docker.pkg.github.com -u publisher -p "${GITHUB_TOKEN}"
+        docker push docker.pkg.github.com/${GITHUB_REPOSITORY_LC}/v1:latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
